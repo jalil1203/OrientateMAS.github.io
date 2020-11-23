@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <title>Efecto fotoeléctrico</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="../css/styles.css" type="text/css" rel='stylesheet' media="all" />
+        <link href="css/styles.css" type="text/css" rel='stylesheet' media="all" />
+
+        <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
+        <link href="../css/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    </head>
+
+    <body>
+
+
+        <div id="wrapper">
+
+            <header>
+                <h1>
+                    Efecto fotoeléctrico
+                </h1>
+                <nav>
+                    <a href="../"><i class="icon-arrow-left icon-2x" aria-hidden="true"> </i></a>                
+                </nav>
+            </header>
+
+            <section id="main-animation">
+                <canvas id="photoelectric-effect-animation"></canvas>
+
+
+                <div id="spectrum">
+
+                    <div class="label">
+                        <h3>Longitud de onda (nm)</h3>
+                        <span></span>
+                    </div>
+
+                    <div class="slider-group">
+                        <input class="slider" type="range" min="230" max="900" step="1" />
+
+                        <div id="waves">
+                            <span class="uv">
+                                UV
+                            </span>
+                            <span class="visible">
+                            </span>
+                            <span class="ir">
+                                IR
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="label">
+                        <h3>Energía fotón (eV) <a id="show-photon-energy" href="#">?</a></h3>
+                        <span class="equation"></span>
+                    </div>
+
+                    <div id="photon-energy" class="modal">
+                        <div class="modal-content">                    
+                            <span class="close">x</span>
+                            <h2>Energía de un fotón</h2>
+                            La energía de un fotón se calcula aplicando la siguiente fórmula:
+                            <pre>
+                                E = h * c / &lambda;
+                            </pre>
+                            donde
+                            <ul>
+                                <li>
+                                    h = 4,135667331*10<sup>-15</sup> eV
+                                </li>
+                                <li>
+                                    c = 3*10<sup>8</sup> m/s
+                                </li>
+                                <li>
+                                    &lambda; es la longitud de onda expresada en metros
+                                </li>
+                            </ul>                            
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="intensity">
+                    <div class="label">
+                        <h3>Intensidad (A)</h3>
+                        <span></span>
+                    </div>
+                    <div class="slider-group">
+                        <input class="slider" type="range" min="0" max="10" step="1" />
+                    </div>
+                </div>
+
+                <div id="potential">
+                    <div class="label">
+                        <h3>Potencial de retardo (V)</h3>
+                        <span></span>
+                    </div>
+                    <div class="slider-group">
+                        <input class="slider" type="range" min="0" max="2" step="0.05" />
+                    </div>
+                </div>
+
+            </section>
+
+            <aside>
+                <h2>Metal</h2>
+
+                <select id="metal">
+                    <option data-f="9,8654x10<sup>14</sup>" data-w="4.08" data-thr="304">Aluminio</option>
+                    <option data-f="1,2090x10<sup>15</sup>" data-w="5" data-thr="248">Berilio</option>
+                    <option data-f="9,8412x10<sup>14</sup>" data-w="4.07" data-thr="305">Cadmio</option>
+                    <option data-f="7,0122x10<sup>14</sup>" data-w="2.9" data-thr="428">Calcio</option>
+                    <option data-f="1,1631x10<sup>15</sup>" data-w="4.81" data-thr="258">Carbón</option>
+                    <option data-f="5,0778x10<sup>14</sup>" data-w="2.1" data-thr="591">Cesio</option>
+                    <option data-f="1,2090x10<sup>15</sup>" data-w="5" data-thr="248">Cobalto</option>
+                    <option data-f="1,1365x10<sup>15</sup>" data-w="4.7" data-thr="264">Cobre</option>
+                    <option data-f="1,0881x10<sup>15</sup>" data-w="4.5" data-thr="276">Hierro</option>
+                    <option data-f="8,8982x10<sup>14</sup>" data-w="3.68" data-thr="337">Magnesio</option>
+                    <option data-f="1,0881x10<sup>15</sup>" data-w="4.5" data-thr="276">Mercurio</option>
+                    <option data-f="1,2114x10<sup>15</sup>" data-w="5.01" data-thr="248">Níquel</option>
+                    <option data-f="1,0397x10<sup>15</sup>" data-w="4.3" data-thr="289">Niobio</option>
+                    <option data-f="1,2332x10<sup>15</sup>" data-w="5.1" data-thr="243">Oro</option>
+                    <option data-f="5,5614x10<sup>14</sup>" data-w="2.3" data-thr="539">Potasio</option>
+                    <option data-f="1,5354x10<sup>15</sup>" data-w="6.35" data-thr="195">Platino</option>
+                    <option data-f="1,0010x10<sup>15</sup>" data-w="4.14" data-thr="300">Plomo</option>
+                    <option data-f="1,2356x10<sup>15</sup>" data-w="5.11" data-thr="243">Selenio</option>
+                    <option data-f="1,0301x10<sup>15</sup>" data-w="4.26" data-thr="291">Plata</option>
+                    <option data-f="5,5130x10<sup>14</sup>" data-w="2.28" data-thr="544">Sodio</option>
+                    <option data-f="8,7048x10<sup>14</sup>" data-w="3.6" data-thr="345">Uranio</option>
+                    <option data-f="1,0397x10<sup>15</sup>" data-w="4.3" data-thr="289">Zinc</option>
+                </select>
+
+
+                <div class="label">
+                    <h3>Frecuencia umbral (&nu;<sub>0</sub>) </h3>
+                    <span></span>
+                </div>
+
+                <div class="label">
+                    <h3>Trabajo de extracción (W<sub>0</sub>) </h3>
+                    <span></span>
+                </div>
+
+                <div class="label">
+                    <h3>Energía cinética máxima (Ec<sub>max</sub>) <a id="show-ec-max" href="#">?</a> </h3>
+                    <span class="equation"></span>
+                </div>
+
+                <h2>Gráficas</h2>
+                <ul>
+                    <li><a id="show-energy-frequency-chart" href="#">Energía vs frecuencia</a></li>
+                    <li><a id="show-energy-wavelength-chart" href="#">Energía vs longitud de onda</a></li>
+                </ul>
+                <h2>Documentación</h2>
+                <ul>
+                    <li><a id="show-desc" href="#">Ficha</a></li>
+                    <li><a  id="show-questions" href="#">Cuestiones</a></li>
+                    <li><a  id="show-exercises" href="#">Problemas</a></li>
+                    <li><a href="http://goo.gl/forms/kYf1Jgu2qv" target="_blank">Encuesta valoración</a></li>
+                </ul>
+                <br/>
+                <br/>
+                <ul>
+                    <li><a href="#" id="print">Versión para imprimir</a></li>
+                </ul>
+            </aside>
+
+            <section id="ec-max" class="modal">
+                <div class="modal-content">
+                    <span class="close">x</span>
+                    <h2>Energía cinética máxima</h2>
+                    <p>
+                        La energía cinética máxima se calcula aplicando la siguiente ecuación
+                    </p>
+                    <pre>
+                            Ec<sub>max</sub> = h&nu; - W<sub>0</sub>
+                    </pre>
+                    donde
+                    <ul>
+                        <li>
+                            h = 4,135667331*10<sup>-15</sup> eV
+                        </li>
+                        <li>
+                            &nu;  es la frecuencia  y se calcula como el cociente entre
+                            <ul>
+                                <li>
+                                    c = 3*10<sup>8</sup> m/s
+                                </li>
+                                <li>
+                                    &lambda;, longitud de onda expresada en metros
+                                </li>                                        
+                            </ul>
+                        </li>
+                        <li>
+                            W<sub>0</sub> es el trabajo de extracción
+                        </li>                        
+                    </ul>                   
+                </div>
+            </section>
+
+            <section id="chart-section" class="modal">
+                <div class="modal-content">                    
+                    <span class="close">x</span>
+                    <h2></h2>
+                    <div class="chart-group">
+                        <div id="yaxis-label"></div>
+                        <canvas  id="chart" width="400" height="300"></canvas>     
+                        <div id="xaxis-label"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="desc" class="modal">
+                <div class="modal-content">
+                    <span class="close">x</span>
+                    <h2>Efecto fotoeléctrico</h2>
+                    <p>
+                        En 1887, Heinrich Hertz descubrió que al someter a la acción de la luz 
+                        determinadas superficies metálicas, desprendían electrones 
+                        (llamados fotoelectrones). Este fenómeno se denominó efecto fotoeléctrico.
+                    </p>
+                    <p>
+                        Cuando se ilumina el cátodo, se origina una corriente eléctrica de cierta 
+                        intensidad (proporcional al número de electrones arrancados y que se puede 
+                        determinar ubicando un amperímetro en el dispositivo experimental). El trabajo 
+                        necesario para arrancar el electrón del metal depende de la naturaleza del mismo 
+                        (de la energía de enlace). La energía más pequeña necesaria para producir 
+                        efecto fotoeléctrico (aquélla que arrancaría los electrones más débilmente unidos) 
+                        se conoce con el nombre de trabajo de extracción (o función de trabajo). 
+                        Cuantitativamente se puede calcular a partir de la siguiente expresión:
+                    </p>
+
+                    <pre>
+                    W<sub>0</sub> = h &nu;<sub>0</sub>;  &nu;<sub>0</sub> &equiv; frecuencia umbral
+                    </pre>
+                    <p>
+                        Cuando el ánodo es negativo, debido a la interacción electrostática, los electrones
+                        se sentirán repelidos de tal manera que sólo serán capaces de llegar aquéllos que 
+                        posean suficiente energía cinética como para superar el potencial de repulsión. 
+                        Existe un valor del potencial de repulsión a partir del cual ningún electrón alcanzaría 
+                        el ánodo y que recibe el nombre de potencial de frenado (o potencial de detención). 
+                        La forma de calcularlo es:
+                    </p>
+                    <pre>
+                    E<sub>c</sub> = q <sub>e<sup>-</sup></sub>V<sub>D</sub>
+                    </pre>
+
+                    <p>
+                        En 1905, Albert Einstein es capaz de explicar el efecto fotoeléctrico a partir de 
+                        varias suposiciones:
+                    </p>
+                    <ul>
+                        <li>
+                            La energía de cada fotón emitido está cuantizada. Se relaciona con la f
+                            recuencia mediante la expresión:
+                            <pre>
+                            E = h&nu;
+                            </pre>
+                        </li>
+                        <li>
+                            Los fotones emitidos, al incidir sobre el cátodo, son absorbidos completamente 
+                            por fotoelectrones, aportándoles cierta cantidad de energía cinética. La energía 
+                            cinética de los fotoelectrones responde a la expresión: 
+                            <pre>
+                            E<sub>c</sub> = h&nu; - W
+                            </pre>                        
+                        </li>
+                        <li>
+                            Aquel electrón que esté más débilmente unido será el que sea extraído con 
+                            una mayor energía cinética, es decir, será emitido a mayor velocidad. La 
+                            forma de calcular la energía cinética de los electrones menos fuertemente 
+                            ligados es:
+                            <pre>
+                            E<sub>c</sub> = h&nu; - W<sub>0</sub>
+                            </pre>                        
+
+                        </li>
+                        <li>
+                            Como consecuencia de las citadas suposiciones encontramos que, si la 
+                            frecuencia de la radiación incidente es inferior a la frecuencia umbral, no 
+                            se producirá efecto fotoeléctrico (por lo que no se extraerá ningún fotoelectrón).
+                        </li>
+                        <li>
+                            Si modificamos la intensidad de la luz, modificamos el número de fotones 
+                            que incide sobre el cátodo por lo que modificará sustancialmente el número 
+                            de fotoelectrones emitidos. Sin embargo, una modificación de la intensidad 
+                            no supondrá una modificación en la energía de los fotones ni de los 
+                            fotoelectrones emitidos.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="static-charts" class="modal">
+                <h2>Frecuencia vs Energía</h2>
+                <div><img src="i/freq-vs-energy.png" alt="Frecuencia vs energía" /></div>
+
+                <h2>Longitud de onda vs Energía</h2>
+                <div><img src="i/wavelength-vs-energy.png" alt="Longitud de onda vs energía" /></div>
+            </section>
+
+
+            <section id="questions" class="modal">
+                <div class="modal-content">
+                    <span class="close">x</span>
+                    <h2>Cuestiones efecto fotoeléctrico</h2>
+                    <ol>
+                        <li>
+                            <strong>Selectividad 2015</strong> En una célula fotoeléctrica, 
+                            el cátodo metálico se ilumina con una radiación de &lambda; = 175nm 
+                            y el potencial de frenado es de 1V. Cuando usamos una luz de 
+                            250nm, el potencial de frenado será:
+                            <ol type="a">
+                                <li>
+                                    Mayor; </li><li> Menor; </li><li> Igual.</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <strong>Selectividad 2014</strong> Si se duplica la frecuencia 
+                            de la radiación que incide sobre un metal:
+                            <ol type="a"> <li> Se duplica la energía cinética de los electrones extraídos; 
+                                </li><li> La energía cinética de los electrones extraídos no experimenta modificación; </li><li> No es cierta ninguna de las dos opciones anteriores.</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <strong>Selectividad 2014</strong> Al irradiar un metal con luz roja 
+                            (682nm) se produce efecto fotoeléctrico. Si irradiamos el mismo 
+                            metal con luz amarilla (570nm):
+                            <ol type="a"> <li> No se produce efecto fotoeléctrico; </li><li> Los electrones emitidos se mueven más rápidamente; </li><li> Se emiten más electrones pero a la misma velocidad.</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <strong>Selectividad 2013</strong> Una radiación monocromática, de longitud de onda 300nm, incide sobre Cesio. Si la longitud de onda umbral del cesio es 622nm, el potencial de frenado es:
+                            <ol type="a"> <li> 12,5V; </li><li> 2,15V; </li><li> 125V.</li>
+                            </ol>
+                            DATOS: 1nm = 10<sup>-9</sup>m; h=6.63 x 10<sup>-34</sup> J s; c=3x10<sup>8</sup> m/s; q<sub>e</sub> = -1.6x10<sup>-19</sup>C
+                        </li>
+                        <li>
+                            <strong>Selectividad 2013</strong> Se produce efecto fotoeléctrico cuando fotones de frecuencia &nu;, superior a una frecuencia umbral &nu;<sub>0</sub>, inciden sobre ciertos metales. ¿Cuál de las siguientes afirmaciones es correcta?
+                            <ol type="a"> <li> Se emiten fotones de menor frecuencia; </li><li> Se emiten electrones; </li><li> Hay un cierto retraso temporal entre el instante de la iluminación y el de emisión de las partículas.</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <strong>Selectividad 2011</strong> Con un rayo de luz de longitud de onda &lambda; no se produce efecto fotoeléctrico en un metal. Para conseguirlo se debe aumentar:
+                            <ol type="a"> <li> La longitud de onda &lambda;; </li><li> La frecuencia &nu; ; </li><li> El potencial de frenado.</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <strong>Selectividad 2009</strong> Para producir efecto fotoeléctrico no se usa luz visible, sino ultravioleta, y esto es porque la luz UV:
+                            <ol type="a"> <li> Calienta más la superficie metálica; </li><li> Tiene mayor frecuencia; </li><li> Tiene mayor longitud de onda.</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <strong>Selectividad 2008</strong> Se produce efecto fotoeléctrico cuando fotones más energéticos que los visibles, por ejemplo luz ultravioleta, inciden sobre la superficie limpia de un metal. ¿De qué depende que haya o no emisión de electrones?
+                            <ol type="a"> <li> De la intensidad de la luz; </li><li> De la frecuencia de la luz y de la naturaleza del metal; </li><li> Sólo del tipo de metal.</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <strong>Selectividad 2007</strong> Un metal cuyo trabajo de extracción es 4,25eV, se ilumina con fotones de 5,5eV. ¿Cuál será la energía cinética máxima de los fotoelectrones emitidos?
+                            <ol type="a"> <li> 5.5 eV; </li><li> 1.25 eV; </li><li> 9,75 eV.</li>
+                            </ol>
+                        </li>
+                        <li>
+                            <strong>Selectividad 2003</strong> En el efecto fotoeléctrico:
+                            <ol type="a"> <li> La energía cinética de los electrones emitidos depende de la intensidad de la luz incidente; 
+                                </li><li> Hay una frecuencia mínima para la luz incidente; </li><li> El trabajo de extracción no depende de la naturaleza del metal.</li>
+                            </ol>
+                        </li>
+                    </ol>
+
+                </div>
+            </section>
+
+            <section id="exercises" class="modal">
+                <div class="modal-content">
+                    <span class="close">x</span>
+                    <h2>Problemas efecto fotoeléctrico</h2>
+                    <ol>
+                        <li>
+                            <strong>Selectividad 2015</strong> La frecuencia umbral del Wolframio es 1.3x10<sup>15</sup>Hz.
+
+                            <ol type="a">
+                                <li> 
+                                    Justifica que si se ilumina con luz de longitud de onda 1.50x10<sup>-7</sup>m se emiten electrones. 
+                                </li>
+                                <li> 
+                                    Calcula la longitud de onda incidente para que 
+                                    la velocidad de los electrones emitidos sea de 4.50x10<sup>5</sup>m/s . 
+                                    <h4>Solución</h4>
+                                    <pre>
+                                        &lambda; = 2.08x10<sup>-7</sup>m
+                                    </pre>
+                                </li>
+                                <li> 
+                                    ¿Cuál es la longitud de onda de De Broglie asociada a 
+                                    los electrones emitidos con la velocidad de 4.50x10<sup>5</sup>m/s? 
+                                    <h4>Solución</h4>
+                                    <pre>
+                                        &lambda; = 1.62x10<sup>-9</sup>m
+                                    </pre>                                    
+                                </li>
+                            </ol>
+                        </li>
+                        <li>
+                            <strong>Selectividad 2011</strong> Un rayo de luz produce efecto fotoeléctrico en un metal. Calcula:
+                            <ol type="a">
+                                <li> 
+                                    La velocidad de los electrones si el potencial 
+                                    de frenado es de 0,5V.
+                                    <h4>Solución</h4>
+                                    <pre>
+                                        &nu; = 4.2x10<sup>5</sup>m/s
+                                    </pre>                                    
+                                </li>
+                                <li> 
+                                    La longitud de onda necesaria si la frecuencia umbral 
+                                    es &nu;<sub>0</sub>=10<sup>15</sup>Hz y el potencial de 
+                                    frenado es 1V. 
+                                    <h4>Solución</h4>
+                                    <pre>
+                                        &lambda; = 2.41x10<sup>-7</sup>m
+                                    </pre>
+                                </li>
+                                <li> 
+                                    ¿Aumenta la velocidad de los electrones incrementando la intensidad de la luz incidente?
+                                </li>
+                            </ol>
+                        </li>
+                        <li><strong>Selectividad 2005</strong> El trabajo de extracción del cátodo 
+                            metálico en una célula fotoeléctrica es 3,32eV. 
+                            Sobre él incide radiación de longitud de onda &lambda; = 325nm; calcula:
+                            <ol type="a">
+                                <li> 
+                                    La velocidad máxima con la que son emitidos los electrones. 
+                                    <h4>Solución</h4>
+                                    <pre>
+                                        v = 4.2x10<sup>5</sup>m/s
+                                    </pre>
+                                </li>
+                                <li> 
+                                    El potencial de frenado. 
+                                    <h4>Solución</h4>
+                                    <pre>
+                                        V = 5.0x10<sup>-1</sup>V
+                                    </pre>
+                                </li>
+                            </ol>
+                        </li>
+                        <li><strong>Selectividad 2003</strong> 
+                            Si el trabajo de extracción para cierto metal es 5.6x10<sup>-19</sup>eV.
+                            Calcula:
+                            <ol type="a">
+                                <li> 
+                                    La frecuencia umbral por debajo de la cual no hay 
+                                    efecto fotoeléctrico en ese metal. 
+                                    <h4>Solución</h4>
+                                    <pre>
+                                        &nu;<sub>0</sub> = 8.44x10<sup>14</sup>Hz
+                                    </pre>                                    
+                                </li>
+                                <li> 
+                                    El potencial de frenado que se debe aplicar para 
+                                    que los electrones emitidos no lleguen al ánodo si la 
+                                    luz incidente es de 320nm. 
+                                    <h4>Solución</h4>
+                                    <pre>
+                                        V = 0.38V
+                                    </pre>
+
+                                </li>
+                            </ol>
+                        </li>
+
+                        <li><strong>Selectividad 2002</strong> 
+                            El trabajo de extracción de electrones en un metal es de 5x10<sup>-19</sup>J. 
+                            Una luz de longitud de onda 375nm incide sobre el metal; calcula:
+                            <ol type="a">
+                                <li> 
+                                    La frecuencia umbral. 
+                                    <h4>Solución</h4>
+                                    <pre>
+                                        &nu;<sub>0</sub> = 7.55x10<sup>14</sup>Hz
+                                    </pre>
+
+                                </li>
+                                <li> 
+                                    La energía cinética de los electrones extraídos. 
+                                    <h4>Solución</h4>
+                                    <pre>
+                                        E = 2.98x10<sup>-20</sup>J
+                                    </pre>                                
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                    <h3>Datos</h3>
+                    <ul>
+                        <li>
+                            1eV = 1.60 x 10 <sup>-19</sup> J 
+                        </li>
+                        <li>
+                            1nm = 10<sup>-9</sup>m 
+                        </li>
+                        <li>
+                            h = 6.63x10<sup>-34</sup> J s
+                        </li>
+                        <li>
+                            c = 3x10<sup>8</sup> m/s 
+                        </li>
+                        <li>
+                            q<sub>e</sub> = -1.6x10<sup>-19</sup>C 
+                        </li>
+                        <li>
+                            m<sub>e</sub> = 9.1x10<sup>-31</sup>kg
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <footer>
+                <p>
+                    Desarrollo de recursos educativos digitales para la enseñanza de 
+                    Física-Química, Biología-Geología y Tecnología en EPO, ESO y Bachillerato - 2016
+                    <br />
+                    <a href="../">Índice de aplicaciones</a>
+                    -
+                    <a href="#" id="show-info">
+                        Quiénes somos?
+                    </a>
+                </p>
+            </footer>
+
+
+            <div class="modal" id="info">
+                <div class="modal-content">
+                    <span class="close">x</span>
+                    <div id="who_we_are"></div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <script src="../js/jquery.js" type="text/javascript"></script>
+        <script src="../js/jquery.i18n.properties.min.js" type="text/javascript"></script>
+        <script src="../js/Chart.min.js"></script>
+        <script src="../js/Chart.Scatter.min.js"></script>        
+        <script>
+            var lang = "es";
+        </script>
+        <script src="../js/modal.min.js" type="text/javascript"></script>
+        <script src="js/data.min.js" type="text/javascript"></script>
+        <script src="js/canvas.min.js" type="text/javascript"></script>
+
+    </body>
+
+
+</html>
